@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RIMA & RESPOSTA — Quiz de Rap Nacional</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Permanent+Marker&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+
+<body>
+
+<header class="topo">
+  <div class="logo">RIMA <span>&</span> RESPOSTA</div>
+
+  <nav class="menu">
+    <button id="botao-ranking">Ranking</button>
+    <button id="botao-biblioteca">♫ Trilha</button>
+  </nav>
+</header>
+
+<main>
+  <section id="inicio" class="tela ativa">
+    <div class="caixa">
+      <div class="grafite">RAP</div>
+
+      <div class="hero">
+        <span class="spray">RAP NACIONAL • CONHECIMENTO DE RUA</span>
+
+        <h1>RIMA<br>&<br>Milhão</h1>
+
+        <p>
+          Um quiz sobre a cultura do rap brasileiro: história, artistas, movimentos,
+          bastidores, beats e consciência.
+        </p>
+
+        <button id="botao-configurar" class="botao-principal">
+          ENTRAR NO CYPHER →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="config" class="tela">
+    <div class="caixa">
+      <div class="grafite">FLOW</div>
+
+      <h1>Monte o cypher</h1>
+      <p class="muted">Escolha o formato, os temas e entre no jogo.</p>
+
+      <div class="grid g3">
+        <label>
+          Seu nome
+          <input id="nome" maxlength="24" placeholder="MC, DJ, fã...">
+        </label>
+
+        <label>
+          Perguntas
+          <select id="quantidade">
+            <option>5</option>
+            <option selected>10</option>
+            <option>15</option>
+            <option>20</option>
+          </select>
+        </label>
+
+        <label>
+          Tempo por pergunta
+          <select id="tempo-config">
+            <option value="15">15 segundos</option>
+            <option value="25" selected>25 segundos</option>
+            <option value="40">40 segundos</option>
+            <option value="0">Sem cronômetro</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="grid g3">
+        <label class="painel">
+          <input type="radio" name="modo" value="classico" checked>
+          <strong>Battle Clássico</strong><br>
+          <small>3 vidas. Complete a sessão.</small>
+        </label>
+
+        <label class="painel">
+          <input type="radio" name="modo" value="sobrevivencia">
+          <strong>Freestyle Fatal</strong><br>
+          <small>1 erro e o microfone é desligado.</small>
+        </label>
+
+        <label class="painel">
+          <input type="radio" name="modo" value="treino">
+          <strong>Estúdio</strong><br>
+          <small>Sem vidas e sem cronômetro.</small>
+        </label>
+      </div>
+
+      <h2>Escolha os temas</h2>
+      <p id="contador-temas" class="muted"></p>
+
+      <div id="temas" class="temas"></div>
+
+      <button id="botao-iniciar" class="botao-principal">
+        SUBIR NO PALCO →
+      </button>
+    </div>
+  </section>
+
+  <section id="jogo" class="tela">
+    <div class="caixa">
+      <div class="grafite">MC</div>
+
+      <div class="status">
+        <div>RODADA<strong id="rodada"></strong></div>
+        <div>RESPEITO<strong id="premio"></strong></div>
+        <div>VIDAS<strong id="vidas"></strong></div>
+        <div>SEQUÊNCIA<strong id="sequencia"></strong></div>
+      </div>
+
+      <progress id="progresso" value="0" max="10"></progress>
+
+      <p>
+        <span id="categoria" class="etiqueta"></span>
+        ·
+        <strong id="tempo" class="tempo"></strong>
+      </p>
+
+      <div class="pergunta-box">
+        <h2 id="pergunta"></h2>
+      </div>
+
+      <div id="alternativas" class="alternativas"></div>
+
+      <p id="feedback" class="feedback"></p>
+
+      <button id="proxima" class="botao-principal" hidden>
+        PRÓXIMA RODADA →
+      </button>
+
+      <div class="ajudas">
+        <button id="ajuda-50">½ · Corta duas</button>
+        <button id="ajuda-tempo">+15s · Respira</button>
+        <button id="ajuda-pular">↗ · Passa o microfone</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="resultado" class="tela">
+    <div class="caixa">
+      <div class="grafite">FIM</div>
+
+      <h1 id="titulo-resultado"></h1>
+      <p id="texto-resultado" class="muted"></p>
+
+      <div class="resultado-numeros">
+        <div>ACERTOS<strong id="resultado-acertos"></strong></div>
+        <div>RESPEITO<strong id="resultado-premio"></strong></div>
+        <div>SEQUÊNCIA<strong id="resultado-sequencia"></strong></div>
+      </div>
+
+      <h2>Replay do cypher</h2>
+
+      <div id="revisao" class="revisao"></div>
+
+      <button id="botao-jogar-novamente" class="botao-principal">
+        VOLTAR AO ESTÚDIO →
+      </button>
+    </div>
+  </section>
+</main>
+
+<aside class="player">
+  <div class="player-info">
+    <strong id="musica-nome">Escolha uma música</strong>
+    <small id="musica-artista">Importe um arquivo do seu dispositivo</small>
+  </div>
+
+  <div class="controles">
+    <button id="play">▶</button>
+    <button id="anterior">⏮</button>
+    <button id="seguinte">⏭</button>
+    <button id="biblioteca-player">Trilha</button>
+  </div>
+
+  <audio id="audio" controls preload="metadata"></audio>
+
+  <p id="audio-status" class="muted"></p>
+</aside>
+
+<dialog id="biblioteca">
+  <h2>Sua trilha</h2>
+
+  <p class="muted">
+    Adicione músicas do seu dispositivo.
+    Os arquivos não são enviados para a internet.
+  </p>
+
+  <label>
+    Adicionar músicas
+    <input id="arquivos" type="file" accept="audio/*" multiple>
+  </label>
+
+  <div id="lista-musicas" class="lista"></div>
+
+  <button onclick="document.getElementById('biblioteca').close()">
+    Fechar
+  </button>
+</dialog>
+
+<dialog id="ranking">
+  <h2>Mural dos MCs</h2>
+  <p class="muted">Ranking salvo apenas neste navegador.</p>
+
+  <div id="lista-ranking" class="lista"></div>
+
+  <button id="limpar-ranking">Apagar mural</button>
+
+  <button onclick="document.getElementById('ranking').close()">
+    Fechar
+  </button>
+</dialog>
+
+<div id="toast" class="toast"></div>
+
+</body>
+</html>
